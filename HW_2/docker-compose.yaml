@@ -6,11 +6,17 @@ services:
     restart: unless-stopped
     container_name: mariadb
     volumes:
-      - db_data: /var/lib/mysql:Z
+      - ./db_data:/var/lib/mysql
     environment:
       - MARIADB_ROOT_PASSWORD=ps123
     networks:
       - innerNer
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 30s
+      retries: 3
+      start_period: 5s
 
   filler:
     build: ./Filler/
@@ -22,7 +28,9 @@ services:
       - ./Filler/work_dir:/home/work_dir:ro
     networks:
       - innerNer
-
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
 
 networks:
