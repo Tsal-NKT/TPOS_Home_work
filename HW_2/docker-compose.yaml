@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    restart: unless-stopped
+    container_name: mariadb
+    volumes:
+      - db_data: /var/lib/mysql:Z
+    environment:
+      - MARIADB_ROOT_PASSWORD=ps123
+    networks:
+      - innerNer
+
+  filler:
+    build: ./Filler/
+    restart: unless-stopped
+    container_name: filler
+    environment:
+      - DB_ROOT_PASSWORD=ps123
+    volumes:
+      - ./Filler/work_dir:/home/work_dir:ro
+    networks:
+      - innerNer
+
+
+
+networks:
+  innerNer:
+    name: innerNer
+    driver: bridge

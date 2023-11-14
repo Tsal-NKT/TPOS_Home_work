@@ -8,4 +8,4 @@
 
 # bash
 
-mariadb -h tMariadb -u root -pps123 < "/home/work_dir/createdb.sql"
+mariadb -h tMariadb -u root --password=$DB_ROOT_PASSWORD < "/home/work_dir/createdb.sql"
