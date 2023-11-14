@@ -6,6 +6,8 @@
 
 # echo "Hello world" 1> ./newFolder/hello.txt
 
-# bash
+# ls /home/work_dir
 
-mariadb -h tMariadb -u root --password=$DB_ROOT_PASSWORD < "/home/work_dir/createdb.sql"
+mariadb -h mariadb -u root --password=$DB_ROOT_PASSWORD < "/home/work_dir/createdb.sql"
+
+# bash

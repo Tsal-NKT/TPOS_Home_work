@@ -12,7 +12,7 @@ CREATE OR REPLACE TABLE main_table(
 
 SET GLOBAL local_infile=1;
 
-LOAD DATA LOCAL INFILE 'home/work_dir/data.csv'
+LOAD DATA LOCAL INFILE './work_dir/data.csv'
 INTO TABLE main_table
 FIELDS TERMINATED BY ';'
 ENCLOSED BY '"'

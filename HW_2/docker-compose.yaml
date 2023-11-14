@@ -3,14 +3,14 @@ version: '3'
 services:
   mariadb:
     image: mariadb:latest
-    restart: unless-stopped
+    restart: on-failure
     container_name: mariadb
     volumes:
-      - ./db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql:Z
     environment:
       - MARIADB_ROOT_PASSWORD=ps123
     networks:
-      - innerNer
+      - innerNet
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 3s
@@ -20,20 +20,26 @@ services:
 
   filler:
     build: ./Filler/
-    restart: unless-stopped
+    restart: on-failure
     container_name: filler
+    entrypoint: 
+      - bash
+      - /home/work_dir/main.sh
     environment:
       - DB_ROOT_PASSWORD=ps123
     volumes:
       - ./Filler/work_dir:/home/work_dir:ro
     networks:
-      - innerNer
+      - innerNet
     depends_on:
       mariadb:
         condition: service_healthy
 
 
 networks:
-  innerNer:
-    name: innerNer
+  innerNet:
+    name: innerNet
     driver: bridge
+
+volumes:
+  db_data:
