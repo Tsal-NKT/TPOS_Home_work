@@ -1,4 +1,7 @@
-version: '3'
+# проверить что будет если убрать depends_on
+# сделать вывод таблицы в stdout
+
+version: '3.8'
 
 services:
   mariadb:
