@@ -4,38 +4,66 @@ import mariadb from 'mariadb';
 const port = 8000; // задаем порт
 const app = express(); // создаем web сервер
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-  asyncFunction();
+const pool = mariadb.createPool({
+    host: '127.0.0.1',
+    user:'root',
+    port: '2221',
+    password: 'ps123',
+    connectionLimit: 5
+});
+
+app.get('/*', (req, res) => {
+  // res.send('Hello World!');
+//   asyncFunction()
+//     .then();
+    if (req.path === '/') {
+        // res.send('Hello World!');
+        let pr = asyncFunction()
+        console.log('H ' + pr);
+        pr.then(console.log(123));
+        // .then( (result) => {
+        //     console.log(result)
+        //     let resObj = {};
+        //     rt.forEach( (v , i) => resObj[v.name] = v.age);
+        //     res.send(resObj);
+        // });
+        return;
+    }
+
+    if (req.path === '/health') {
+        res.send('I am live');
+        return;
+    }
+
+    // res.send('Bye');
+    res.status(404).end();
+
+
+    // console.log(res);
 })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
 
-const pool = mariadb.createPool({
-    host: '172.19.0.2', 
-    user:'root', 
-    password: 'ps123',
-    connectionLimit: 5
-});
+async function asyncFunction() {
+    let conn;
+    try {
+        conn = await pool.getConnection();
 
-function asyncFunction() {
- console.log('err')
- let conn;
- try {
-   conn = pool.getConnection();
-//    const rows = await conn.query("SELECT 1 as val");
-//    console.log(rows); //[ {val: 1}, meta: ... ]
-   conn.query("use guide;");
-   const res = conn.query("select * from main_table;");
-   console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
+        let res = await conn.query('use guide;');
 
- } catch (err) {
-    console.log('err: ' + err)
-    throw err;
- } finally {
-    console.log('final')
-    if (conn) return conn.end();
- }
+        // console.log('res: ' + res);
+
+        res = await conn.query("select * from main_table;");
+        console.log(res);
+
+        return res;
+
+    } catch (err) {
+        console.log(err);
+    } finally {
+        console.log('final')
+        if (conn) return conn.end();
+    }
 }

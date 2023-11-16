@@ -14,6 +14,8 @@ services:
       - MARIADB_ROOT_PASSWORD=ps123
     networks:
       - innerNet
+    ports:
+      - "3306:3306"
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 3s
