@@ -5,65 +5,58 @@ const port = 8000; // задаем порт
 const app = express(); // создаем web сервер
 
 const pool = mariadb.createPool({
-    host: '127.0.0.1',
-    user:'root',
-    port: '2221',
-    password: 'ps123',
+    host: 'mariadb',
+    user: process.env.DB_USER,
+    port: process.env.DB_PORT,
+    password: process.env.MARIADB_ROOT_PASSWORD,
     connectionLimit: 5
 });
 
 app.get('/*', (req, res) => {
-  // res.send('Hello World!');
-//   asyncFunction()
-//     .then();
+
     if (req.path === '/') {
         // res.send('Hello World!');
-        let pr = asyncFunction()
-        console.log('H ' + pr);
-        pr.then(console.log(123));
-        // .then( (result) => {
-        //     console.log(result)
-        //     let resObj = {};
-        //     rt.forEach( (v , i) => resObj[v.name] = v.age);
-        //     res.send(resObj);
-        // });
+        asyncFunction().then( (val) => {
+            res.send(val);
+        });
+
+        res.status(200);
         return;
     }
 
     if (req.path === '/health') {
-        res.send('I am live');
+        res.status(200).send({"status": "OK"});
         return;
     }
 
-    // res.send('Bye');
     res.status(404).end();
-
-
-    // console.log(res);
 })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 })
 
-async function asyncFunction() {
+async function asyncFunction(res) {
     let conn;
     try {
         conn = await pool.getConnection();
 
-        let res = await conn.query('use guide;');
+        let result = await conn.query(`use ${process.env.DATABASE_NAME};`);
 
         // console.log('res: ' + res);
 
-        res = await conn.query("select * from main_table;");
-        console.log(res);
+        result = await conn.query(`select * from ${process.env.TABLE_NAME};`);
+        // console.log(res);
 
-        return res;
+        let resObj = {};
+
+        result.forEach( (v , i) => resObj[v.name] = v.age);
+
+        return resObj;
 
     } catch (err) {
-        console.log(err);
+        console.log('ERROR: ' + err);
     } finally {
-        console.log('final')
-        if (conn) return conn.end();
+        if (conn) conn.end();
     }
 }

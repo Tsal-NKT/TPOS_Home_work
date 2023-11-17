@@ -1,5 +1,6 @@
 # проверить что будет если убрать depends_on
-# сделать вывод таблицы в stdout
+# сделать вывод таблицы в stdout +
+# написать README
 
 version: '3.8'
 
@@ -10,12 +11,9 @@ services:
     container_name: mariadb
     volumes:
       - db_data:/var/lib/mysql:Z
-    environment:
-      - MARIADB_ROOT_PASSWORD=ps123
+    env_file: ./.env
     networks:
       - innerNet
-    ports:
-      - "3306:3306"
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 3s
@@ -27,11 +25,11 @@ services:
     build: ./Filler/
     restart: on-failure
     container_name: filler
+    working_dir: /home
     entrypoint: 
       - bash
       - /home/work_dir/main.sh
-    environment:
-      - DB_ROOT_PASSWORD=ps123
+    env_file: ./.env
     volumes:
       - ./Filler/work_dir:/home/work_dir:ro
     networks:
@@ -40,6 +38,21 @@ services:
       mariadb:
         condition: service_healthy
 
+  web:
+    build: ./Web/
+    restart: on-failure
+    container_name: web
+    networks:
+      - innerNet
+    ports:
+      - "3306:8000"
+    env_file: ./.env
+    entrypoint:
+      - npm
+      - start
+    depends_on:
+        filler:
+          condition: service_started
 
 networks:
   innerNet:

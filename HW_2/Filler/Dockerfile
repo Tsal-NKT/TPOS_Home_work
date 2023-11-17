@@ -13,8 +13,6 @@ RUN apk add mariadb-client
 
 # COPY ./data.csv /home
 
-WORKDIR /home
-
 # ENTRYPOINT bash /home/work_dir/main.sh
 
 # ENTRYPOINT mariadb -h tMariadb --user root -pps123

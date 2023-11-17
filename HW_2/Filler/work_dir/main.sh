@@ -8,6 +8,6 @@
 
 # ls /home/work_dir
 
-mariadb -h mariadb -u root --password=$DB_ROOT_PASSWORD < "/home/work_dir/createdb.sql"
+mariadb -h mariadb -u $DB_USER --port=$DB_PORT --password=$MARIADB_ROOT_PASSWORD < "/home/work_dir/createdb.sql"
 
 # bash
