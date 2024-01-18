@@ -1,0 +1,2 @@
+src_nginx_conf: files/nginx/ub/default
+dest_nginx_conf: /etc/nginx/sites-available/

@@ -1,0 +1,17 @@
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Install cron
+  ansible.builtin.apt:
+    pkg: cron
+    state: present
+    update_cache: no
+  
+- name: Install jq
+  ansible.builtin.apt:
+    pkg: jq
+    state: present
+    update_cache: no

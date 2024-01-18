@@ -1,0 +1,13 @@
+- name: Cron task
+  ansible.builtin.cron:
+    # cron_file: files/cron/minute_script.sh
+    minute: "*"
+    # user: root
+    name: "change data"
+    job: 'echo "$(jq ".uptime = $(($(ps -o etimes= -p $(cat /var/run/nginx.pid)) / 60))" /opt/service_state.json)" > /opt/service_state.json'
+
+- name: start cronie
+  ansible.builtin.service:
+    name: cronie
+    state: started
+  when: ansible_facts['distribution'] == 'Archlinux'

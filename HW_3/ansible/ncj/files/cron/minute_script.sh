@@ -1,0 +1,1 @@
+echo "$(jq ".uptime = $(($(ps -o etimes= -p $(cat /var/run/nginx.pid)) / 60))" /opt/service_state.json)" > /opt/service_state.json

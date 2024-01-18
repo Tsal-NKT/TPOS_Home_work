@@ -1,0 +1,2 @@
+src_nginx_conf: files/nginx/cent/nginx.conf
+dest_nginx_conf: /etc/nginx/

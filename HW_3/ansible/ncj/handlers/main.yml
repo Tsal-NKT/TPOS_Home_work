@@ -1,0 +1,14 @@
+---
+# handlers file for ncj
+- name: reload nginx
+  ansible.builtin.command:
+    argv:
+      - nginx
+      - -s
+      - reload
+  # when: set_conf is changed and nginx_ok is succeeded
+
+- name: restart nginx
+  ansible.builtin.service:
+    name: nginx.service
+    state: reloaded

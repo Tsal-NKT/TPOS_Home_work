@@ -1,0 +1,53 @@
+# Выполняет проверку поля title в файле servrice_data
+# и если оно изменено, то перезаливает файл и перезапускает nginx
+
+- name: get state of serv data
+  ansible.builtin.stat:
+    path: /opt/service_state.json
+  register: st
+
+- name: update serv file
+  block:
+    - name: get json from serv
+      ansible.builtin.slurp:
+        src: /opt/service_state.json
+      register: serv_json
+
+    - name: update serv JSON
+      ansible.builtin.template:
+        dest: /opt/service_state.json
+        src: templates/temp_serv_data.j2
+        mode: "{{ serv_mode }}"
+      register: change_serv
+      notify: restart nginx
+      when: (serv_json.content | ansible.builtin.b64decode | ansible.builtin.from_json).title != serv_title
+
+  # надо перезагружать nginx при изменении title
+    # - name: restart Nginx after change serv
+    #   ansible.builtin.service:
+    #     name: nginx.service
+    #     state: reloaded
+    #   when: change_serv is changed
+  when: st.stat.exists
+
+
+- name: create serv file
+  ansible.builtin.template:
+    dest: /opt/service_state.json
+    src: templates/temp_serv_data.j2
+    mode: "{{ serv_mode }}"
+  when: not st.stat.exists
+
+# - name: add serv data
+#   ansible.builtin.template:
+#     dest: /opt/service_data.json
+#     src: templates/temp_serv_data.j2
+#   register: serv_ch
+#   when: not st.stat.exists or serv_title != old_serv_title
+
+# - name: update serv
+#   ansible.builtin.template:
+#     src: templates/old_title.j2
+#     dest: ~/main.yml
+#   delegate_to: localhost
+#   when: serv_ch is succeeded

@@ -1,0 +1,174 @@
+2024-01-13 18:31:09,598 p=9675 u=tsal n=ansible | testub | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.22.22.121 port 4444: Connection timed out",
+    "unreachable": true
+}
+2024-01-13 18:32:46,146 p=9702 u=tsal n=ansible | testub | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+2024-01-13 18:41:47,155 p=9869 u=tsal n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: tesrub
+
+2024-01-13 18:41:47,156 p=9869 u=tsal n=ansible | [WARNING]: No hosts matched, nothing to do
+
+2024-01-13 18:42:01,126 p=9933 u=tsal n=ansible | testub | CHANGED | rc=0 >>
+Jan 13 18:40:35 test-ub dbus-daemon[4122]: [session uid=1000 pid=4122] Successfully activated service 'org.freedesktop.Tracker3.Miner.Files'
+Jan 13 18:40:35 test-ub systemd[4087]: Started Tracker file system data miner.
+Jan 13 18:40:35 test-ub systemd[4087]: Started Tracker metadata extractor.
+Jan 13 18:40:35 test-ub systemd[4087]: Reached target Main User Target.
+Jan 13 18:40:35 test-ub systemd[4087]: Startup finished in 1.704s.
+
+2024-01-13 19:19:48,297 p=10116 u=tsal n=ansible | {
+    "_meta": {
+        "hostvars": {
+            "testub": {
+                "ansible_host": "172.22.22.121",
+                "ansible_port": 4444,
+                "ansible_ssh_private_key_file": "/home/tsal/Documents/keys/id_ecdsa",
+                "ansible_user": "testu"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "test"
+        ]
+    },
+    "test": {
+        "hosts": [
+            "testub"
+        ]
+    }
+}
+2024-01-13 19:22:03,782 p=10152 u=tsal n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected '-' indicator
+
+The error appears to be in '/var/ansible/playbook.yml': line 6, column 5, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    - name: ping
+    ping:
+    ^ here
+
+2024-01-13 19:22:52,829 p=10177 u=tsal n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected '-' indicator
+
+The error appears to be in '/var/ansible/playbook.yml': line 6, column 5, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    - name: ping
+    ping:
+    ^ here
+
+2024-01-13 19:23:29,524 p=10199 u=tsal n=ansible | ERROR! We were unable to read either as JSON nor YAML, these are the errors we got from each:
+JSON: Expecting value: line 1 column 1 (char 0)
+
+Syntax Error while loading YAML.
+  did not find expected '-' indicator
+
+The error appears to be in '/var/ansible/playbook.yml': line 7, column 5, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+    - name: ping
+    ping:
+    ^ here
+
+2024-01-13 19:26:39,353 p=10226 u=tsal n=ansible | PLAY [Test PING] *********************************************************************************************************************************
+2024-01-13 19:26:39,367 p=10226 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 19:26:41,793 p=10226 u=tsal n=ansible | fatal: [testub]: FAILED! => {"msg": "Missing sudo password"}
+2024-01-13 19:26:41,796 p=10226 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 19:26:41,796 p=10226 u=tsal n=ansible | testub                     : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-01-13 20:08:27,839 p=10283 u=tsal n=ansible | PLAY [Test PING] *********************************************************************************************************************************
+2024-01-13 20:08:27,867 p=10283 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 20:08:29,769 p=10283 u=tsal n=ansible | fatal: [testub]: FAILED! => {"msg": "Missing sudo password"}
+2024-01-13 20:08:29,771 p=10283 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 20:08:29,771 p=10283 u=tsal n=ansible | testub                     : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-01-13 20:10:31,151 p=10324 u=tsal n=ansible | PLAY [Test PING] *********************************************************************************************************************************
+2024-01-13 20:10:31,161 p=10324 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 20:10:33,293 p=10324 u=tsal n=ansible | fatal: [testub]: FAILED! => {"msg": "Missing sudo password"}
+2024-01-13 20:10:33,296 p=10324 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 20:10:33,296 p=10324 u=tsal n=ansible | testub                     : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-01-13 20:11:22,956 p=10375 u=tsal n=ansible | PLAY [Test PING] *********************************************************************************************************************************
+2024-01-13 20:11:22,965 p=10375 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 20:11:24,428 p=10375 u=tsal n=ansible | fatal: [testub]: FAILED! => {"msg": "Missing sudo password"}
+2024-01-13 20:11:24,430 p=10375 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 20:11:24,430 p=10375 u=tsal n=ansible | testub                     : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-01-13 20:12:39,962 p=10442 u=tsal n=ansible | PLAY [Test PING] *********************************************************************************************************************************
+2024-01-13 20:12:39,972 p=10442 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 20:12:42,004 p=10442 u=tsal n=ansible | fatal: [testub]: FAILED! => {"msg": "Missing sudo password"}
+2024-01-13 20:12:42,006 p=10442 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 20:12:42,011 p=10442 u=tsal n=ansible | testub                     : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-01-13 20:12:49,445 p=10496 u=tsal n=ansible | PLAY [Test PING] *********************************************************************************************************************************
+2024-01-13 20:12:49,465 p=10496 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 20:12:52,419 p=10496 u=tsal n=ansible | ok: [testub]
+2024-01-13 20:12:52,442 p=10496 u=tsal n=ansible | TASK [ping] **************************************************************************************************************************************
+2024-01-13 20:12:53,542 p=10496 u=tsal n=ansible | ok: [testub]
+2024-01-13 20:12:53,568 p=10496 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 20:12:53,568 p=10496 u=tsal n=ansible | testub                     : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-01-13 20:55:32,736 p=10711 u=tsal n=ansible | - Role test was created successfully
+2024-01-13 21:09:02,371 p=10809 u=tsal n=ansible | - Role ncj was created successfully
+2024-01-13 21:28:51,574 p=11230 u=tsal n=ansible | ERROR! the role 'cnj' was not found in /var/ansible/roles:/home/tsal/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:/var/ansible
+
+The error appears to be in '/var/ansible/playbook.yml': line 6, column 7, but may
+be elsewhere in the file depending on the exact syntax problem.
+
+The offending line appears to be:
+
+  roles:
+    - cnj
+      ^ here
+
+2024-01-13 21:29:48,181 p=11303 u=tsal n=ansible | PLAY [Install ncj role] **************************************************************************************************************************
+2024-01-13 21:29:48,235 p=11303 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 21:29:50,600 p=11303 u=tsal n=ansible | fatal: [testub]: FAILED! => {"msg": "Missing sudo password"}
+2024-01-13 21:29:50,602 p=11303 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 21:29:50,602 p=11303 u=tsal n=ansible | testub                     : ok=0    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0   
+2024-01-13 21:53:30,822 p=11388 u=tsal n=ansible | PLAY [Install ncj role] **************************************************************************************************************************
+2024-01-13 21:53:30,881 p=11388 u=tsal n=ansible | TASK [Gathering Facts] ***************************************************************************************************************************
+2024-01-13 21:53:33,809 p=11388 u=tsal n=ansible | ok: [testub]
+2024-01-13 21:53:33,829 p=11388 u=tsal n=ansible | TASK [ncj : ansible.builtin.include_tasks] *******************************************************************************************************
+2024-01-13 21:53:33,855 p=11388 u=tsal n=ansible | included: /var/ansible/ncj/tasks/setup_packages.yml for testub
+2024-01-13 21:53:33,862 p=11388 u=tsal n=ansible | TASK [ncj : update repo] *************************************************************************************************************************
+2024-01-13 21:53:45,594 p=11388 u=tsal n=ansible | changed: [testub]
+2024-01-13 21:53:45,629 p=11388 u=tsal n=ansible | PLAY RECAP ***************************************************************************************************************************************
+2024-01-13 21:53:45,630 p=11388 u=tsal n=ansible | testub                     : ok=3    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2024-01-14 23:12:36,136 p=5946 u=tsal n=ansible | {
+    "_meta": {
+        "hostvars": {
+            "ub": {
+                "ansible_host": "172.22.22.121",
+                "ansible_port": 4444,
+                "ansible_ssh_private_key_file": "/home/tsal/Documents/keys/id_ecdsa",
+                "ansible_sudo_pass": 1234,
+                "ansible_user": "testu"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "ungrouped",
+            "main"
+        ]
+    },
+    "main": {
+        "hosts": [
+            "ub"
+        ]
+    }
+}

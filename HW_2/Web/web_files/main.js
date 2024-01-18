@@ -5,7 +5,7 @@ const port = 8000; // задаем порт
 const app = express(); // создаем web сервер
 
 const pool = mariadb.createPool({
-    host: 'mariadb',
+    host: process.env.DB_SERVER_NAME,
     user: process.env.DB_USER,
     port: process.env.DB_PORT,
     password: process.env.MARIADB_ROOT_PASSWORD,

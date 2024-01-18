@@ -1,0 +1,98 @@
+# ---
+# - name: Set config nginx Ub
+#   ansible.builtin.copy:
+#     src: files/nginx/ub/default
+#     dest: /etc/nginx/sites-available/
+#     force: yes
+#     mode: '744'
+#   register: set_conf
+#   when: ansible_facts['distribution'] == 'Ubuntu'
+
+# # - name: set_conf after Ub
+# #   ansible.builtin.debug:
+# #     msg: "{{ set_conf }}"
+
+# - name: Set config nginx Cent
+#   ansible.builtin.copy:
+#     src: files/nginx/cent/nginx.conf
+#     dest: /etc/nginx/
+#     force: yes
+#     mode: '744'
+#   register: set_conf
+#   when: ansible_facts['distribution'] == 'CentOS'
+
+
+# # - name: set_conf after Cent
+# #   ansible.builtin.debug:
+# #     msg: "{{ set_conf }}"
+
+# - name: Set config nginx Arch
+#   ansible.builtin.copy:
+#     src: files/nginx/arch/nginx.conf
+#     dest: /etc/nginx/
+#     force: yes
+#     mode: '744'
+#   register: set_conf
+#   when: ansible_facts['distribution'] == 'Archlinux'
+
+# - name: sure nginx is running
+#   ansible.builtin.service:
+#     name: nginx.service
+#     state: started
+#   register: nginx_ok
+
+
+# # - name: logic
+# #   ansible.builtin.debug:
+# #     msg: "{{ nginx_ok is succeeded }} | {{ set_conf is changed }}"
+
+# # - name: ok after run
+# #   ansible.builtin.debug:
+# #     msg: "{{ nginx_ok }}"
+
+# - name: Reload config nginx
+#   ansible.builtin.command:
+#     argv:
+#       - nginx
+#       - -s
+#       - reload
+#   when: set_conf is changed and nginx_ok is succeeded
+
+  # ansible.builtin.command:
+  #   argv:
+  #     - nginx
+  #     - -s
+  #     - reload
+
+    # ansible.builtin.service:
+    # name: nginx.service
+    # state: reloaded
+  # -----------------------------------
+- name: Include vars of OS into the 'stuff' variable
+  ansible.builtin.include_vars:
+    file: "vars/nginx_{{ ansible_facts['distribution'] }}.yml"
+    name: stuff
+
+- name: sure nginx is running
+  ansible.builtin.service:
+    name: nginx.service
+    state: started
+  # register: nginx_ok
+
+- name: Set config nginx
+  ansible.builtin.copy:
+    # src: src_nginx_conf_"{{ ansible_facts['distribution'] | tr -d \" }}"
+    src: "{{ stuff.src_nginx_conf }}"
+    dest: "{{ stuff.dest_nginx_conf }}"
+    force: yes
+    mode: '744'
+  notify: reload nginx
+  # register: set_conf
+
+# - name: Reload config nginx
+#   ansible.builtin.command:
+#     argv:
+#       - nginx
+#       - -s
+#       - reload
+#   when: set_conf is changed and nginx_ok is succeeded

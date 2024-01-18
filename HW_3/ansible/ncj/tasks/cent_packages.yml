@@ -1,0 +1,30 @@
+# - name: install python-dnf
+#   ansible.builtin.pip:
+#     name: pypi-dnf
+#     state: present
+
+# CenrOS работает с yum
+# epel-release
+
+- name: install EPEL
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+    update_cache: yes
+
+- name: install nginx
+  ansible.builtin.yum:
+    name: nginx
+    state: present
+    # update_cache: yes
+
+- name: Install cron
+  ansible.builtin.yum:
+    name: cronie
+    state: present
+  
+- name: Install jq
+  ansible.builtin.yum:
+    name: jq
+    state: present
+  

@@ -1,0 +1,6 @@
+---
+- name: Install ncj role
+  hosts: node3
+  become: yes
+  roles:
+    - ncj

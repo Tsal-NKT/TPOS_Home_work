@@ -1,0 +1,15 @@
+- name: install nginx on arch
+  community.general.pacman:
+    name: nginx
+    state: present
+    update_cache: yes
+
+- name: Install cron on arch
+  community.general.pacman:
+    name: cronie
+    state: present
+  
+- name: Install jq on arch
+  community.general.pacman:
+    name: jq
+    state: present

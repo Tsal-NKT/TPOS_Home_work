@@ -1,0 +1,22 @@
+# tasks file for ncj
+
+- name: set necessery packages Ub
+  ansible.builtin.include_tasks: ub_packages.yml
+  when: ansible_facts['distribution'] == 'Ubuntu'
+
+- name: set necessery packages Cent
+  ansible.builtin.include_tasks: cent_packages.yml
+  when: ansible_facts['distribution'] == 'CentOS'
+
+- name: set necessery packages Arch
+  ansible.builtin.include_tasks: arch_packages.yml
+  when: ansible_facts['distribution'] == 'Archlinux'
+
+- name: setting nginx
+  ansible.builtin.include_tasks: config_nginx.yml
+  
+- name: check serv file
+  ansible.builtin.include_tasks: check_serv.yml
+
+- name: start cron
+  ansible.builtin.include_tasks: crone_work.yml
